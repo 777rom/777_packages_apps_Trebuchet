@@ -1024,12 +1024,10 @@ public class Workspace extends PagedView
     }
 
     protected void setWallpaperDimension() {
-        Point minDims = new Point();
-        Point maxDims = new Point();
-        mLauncher.getWindowManager().getDefaultDisplay().getCurrentSizeRange(minDims, maxDims);
-
-        final int maxDim = Math.max(maxDims.x, maxDims.y);
-        final int minDim = Math.min(minDims.x, minDims.y);
+           DisplayMetrics displayMetrics = new DisplayMatrics();
+           mLauncher.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+           final int maxDim = Math.max(displayMatrics.widthPixels, displayMatrics.heightPixels);
+           final int minDim = Math.min(displayMatrics.widthPixels, displayMatrics.heightPixels);
 
         // We need to ensure that there is enough extra space in the wallpaper for the intended
         // parallax effects
@@ -1182,9 +1180,9 @@ public class Workspace extends PagedView
 
     class WallpaperOffsetInterpolator {
         float mFinalHorizontalWallpaperOffset = 0.0f;
-        float mFinalVerticalWallpaperOffset = 0.5f;
+        float mFinalVerticalWallpaperOffset = 0.0f;
         float mHorizontalWallpaperOffset = 0.0f;
-        float mVerticalWallpaperOffset = 0.5f;
+        float mVerticalWallpaperOffset = 0.0f;
         long mLastWallpaperOffsetUpdateTime;
         boolean mIsMovingFast;
         boolean mOverrideHorizontalCatchupConstant;
